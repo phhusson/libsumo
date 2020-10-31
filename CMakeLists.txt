@@ -50,18 +50,15 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #set(CMAKE_AUTOUIC ON) # works only with cmake >= 3.0
 
-find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
-include(${QT_USE_FILE})
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 set(qsumo_SRCS qsumo/qsumo.cpp qsumo/sumo-widget.cpp)
 
-QT4_WRAP_UI(ui_widget.h qsumo/widget.ui)
+QT5_WRAP_UI(ui_widget.h qsumo/widget.ui)
 
 add_executable(qs ${qsumo_SRCS} ui_widget.h)
 
-target_link_libraries(qs
-	${QT_LIBRARIES}
-	sumo
-)
+qt5_use_modules(sumo Widgets)
+target_link_libraries(qs sumo)
 
 
